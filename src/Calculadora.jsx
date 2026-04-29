@@ -6,6 +6,7 @@ import Historial from "./Historial";
 function Calculadora() {
   const [resultado, setResultado] = useState(0);
   const [historial, setHistorial] = useState([]);
+  const [memoria, setMemoria] = useState(null);
   
 
   function calcular(num1, num2, operacion) {
@@ -38,11 +39,22 @@ function Calculadora() {
 });
   }
 
+  function guardarMemoria() {
+    setMemoria(resultado);
+}
+
   return (
+    /*props*/
     <div>
-      <Formulario calcular={calcular} />
-      <Resultado resultado={resultado} />
-      <Historial historial={historial} />
+      <Formulario
+      calcular={calcular}
+      memoria={memoria}
+    />
+    <button className="btnmemoria" onClick={guardarMemoria}>
+      Guardar en memoria
+    </button>
+    <Resultado resultado={resultado} />
+    <Historial historial={historial} />
     </div>
   );
 }

@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-function Formulario({ calcular }) {
+function Formulario({ calcular,memoria }){
   const [num1, setNum1] = useState("");
   const [num2, setNum2] = useState("");
   const [operacion, setOperacion] = useState("sumar");
 
   function manejarEnvio(e) {
-    e.preventDefault();
+    e.preventDefault(); /* para que la pagina no refresque*/
 
     if (num1 === "" || num2 === "") {
       alert("Completar los campos");
@@ -43,6 +43,12 @@ function Formulario({ calcular }) {
       </select>
 
       <button type="submit">Calcular</button>
+      <button
+        type="button"
+        onClick={() => setNum1(memoria || "")}
+        >
+          Usar memoria
+        </button>
     </form>
   );
 }
