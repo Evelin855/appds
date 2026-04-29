@@ -1,9 +1,12 @@
 import { useState } from "react";
 import Formulario from "./Formulario";
 import Resultado from "./Resultado";
+import Historial from "./Historial";
 
 function Calculadora() {
   const [resultado, setResultado] = useState(0);
+  const [historial, setHistorial] = useState([]);
+  
 
   function calcular(num1, num2, operacion) {
     let res = 0;
@@ -20,12 +23,26 @@ function Calculadora() {
     }
 
     setResultado(res);
+    let simbolo = "";
+
+    if (operacion === "sumar") simbolo = "+";
+    if (operacion === "restar") simbolo = "-";
+    if (operacion === "multiplicar") simbolo = "×";
+    if (operacion === "dividir") simbolo = "÷";
+
+    const nuevaOperacion = `${num1} ${simbolo} ${num2} = ${res}`; /* creo texto */
+
+    setHistorial((prevHistorial) => { /* actualizo el estado de historial*/
+      const nuevoHistorial = [nuevaOperacion, ...prevHistorial];/*nueva lista ordenada. ... spread operator (traer todos los elementos de la lista) */
+      return nuevoHistorial.slice(0, 5); /*solo 5*/
+});
   }
 
   return (
     <div>
       <Formulario calcular={calcular} />
       <Resultado resultado={resultado} />
+      <Historial historial={historial} />
     </div>
   );
 }
